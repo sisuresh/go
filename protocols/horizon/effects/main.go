@@ -318,6 +318,15 @@ type ContractCredited struct {
 	base.Asset
 	Contract string `json:"contract"`
 	Amount   string `json:"amount"`
+	// DestinationMuxedID is the muxed-contract destination id (CAP-0084),
+	// present only when the SAC transfer/mint `to` was a muxed contract. No
+	// canonical muxed-contract strkey exists yet, so the raw id is surfaced
+	// directly. Stored as a decimal STRING (mirroring
+	// operations.AssetContractBalanceChange.DestinationMuxedId) so a mux id of
+	// 0 round-trips: with uint64 + ",string" + omitempty, the value "0"
+	// unmarshals to the zero value and omitempty then drops it on re-marshal,
+	// silently losing a valid id.
+	DestinationMuxedID string `json:"destination_muxed_id,omitempty"`
 }
 
 type ContractDebited struct {
