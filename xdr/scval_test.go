@@ -110,6 +110,16 @@ func TestScAddressString(t *testing.T) {
 			},
 			expected: strkey.MustEncode(strkey.VersionByteLiquidityPool, poolID[:]),
 		},
+		{
+			address: ScAddress{
+				Type: ScAddressTypeScAddressTypeMuxedContract,
+				MuxedContract: &MuxedContract{
+					Id:         42,
+					ContractId: ContractId{1},
+				},
+			},
+			expected: strkey.MustEncode(strkey.VersionByteContract, contractID[:]) + ":42",
+		},
 	} {
 		t.Run(testCase.address.Type.String(), func(t *testing.T) {
 			str, err := testCase.address.String()

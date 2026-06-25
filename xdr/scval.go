@@ -37,6 +37,11 @@ func (address ScAddress) String() (string, error) {
 	case ScAddressTypeScAddressTypeClaimableBalance:
 		cbId := address.MustClaimableBalanceId()
 		result, err = cbId.EncodeToStrkey()
+	case ScAddressTypeScAddressTypeMuxedContract:
+		mc := address.MustMuxedContract()
+		var contractStr string
+		contractStr, err = strkey.Encode(strkey.VersionByteContract, mc.ContractId[:])
+		result = fmt.Sprintf("%s:%d", contractStr, uint64(mc.Id))
 	default:
 		return "", fmt.Errorf("unfamiliar address type: %v", address.Type)
 	}
@@ -155,6 +160,9 @@ func (s ScAddress) Equals(o ScAddress) bool {
 	case ScAddressTypeScAddressTypeMuxedAccount:
 		return s.MustMuxedAccount().Id == o.MustMuxedAccount().Id &&
 			s.MustMuxedAccount().Ed25519.Equals(o.MustMuxedAccount().Ed25519)
+	case ScAddressTypeScAddressTypeMuxedContract:
+		return s.MustMuxedContract().Id == o.MustMuxedContract().Id &&
+			s.MustMuxedContract().ContractId == o.MustMuxedContract().ContractId
 	default:
 		panic("unknown ScAddress type: " + s.Type.String())
 	}
