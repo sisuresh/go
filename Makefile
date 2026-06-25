@@ -17,8 +17,11 @@ xdr/Stellar-exporter.x
 
 
 XDRGEN_COMMIT=b423e1da9504239fb3136cbcc5f9beeb37795837
-# Bumped to stellar-xdr@8521b97 for Protocol 28 (CAP-0083).
-XDR_COMMIT=8521b97ba0e8e71d746bf3bd73def92110e6a21f
+# Bumped to stellar-xdr@2769fed for Protocol 28 (CAP-0083, CAP-0084).
+# CAP-0084 (Muxed Contract Addresses) adds SC_ADDRESS_TYPE_MUXED_CONTRACT,
+# struct MuxedContract, and the SCAddress muxedContract arm, all gated behind
+# the CAP_0084 XDR feature flag (stellar/stellar-xdr#305).
+XDR_COMMIT=2769fed744c4ec5a2cf6581addfc1704abfcba7c
 
 .PHONY: xdr xdr-clean xdr-update
 
@@ -68,7 +71,7 @@ xdr/xdr_generated.go: $(XDRS)
 
 # Optional comma-separated features for #ifdef resolution in the XDR files.
 # Empty = no features enabled; only unconditional definitions are emitted.
-XDR_FEATURES ?= CAP_0083
+XDR_FEATURES ?= CAP_0083,CAP_0084
 
 # Generates xdr/xdr_views_generated.go via a two-step pipeline:
 #   1. The rust `generator-definitions-json` tool parses the .x files and
