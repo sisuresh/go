@@ -13,7 +13,7 @@ Official project releases may be found here: https://github.com/stellar/go-stell
 ## Pending
 
 ### Breaking Changes
-* xdr: Regenerated from stellar-xdr@01741cb6 with `CAP_0084_MUXED_CONTRACT` enabled. Contract spec UDT and event names are widened to `SC_SPEC_TYPE_NAME_LIMIT` (1024 bytes), and `ScSpecEventV0.Name` is now a `string` instead of an `ScSymbol`.
+* xdr: Regenerated from stellar-xdr@ee040cd6 with `CAP_0084_MUXED_CONTRACT` enabled. Contract spec UDT and event names are widened to `SC_SPEC_TYPE_NAME_LIMIT` (1024 bytes), and `ScSpecEventV0.Name` is now a `string` instead of an `ScSymbol`.
 
 ### New Features
 * xdr: Add the CAP-0084 `ScAddressTypeScAddressTypeMuxedContract` arm of `ScAddress`. `ScAddress.String()` renders it as a `W...` muxed contract strkey.

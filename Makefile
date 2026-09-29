@@ -17,9 +17,9 @@ xdr/Stellar-exporter.x
 
 
 XDRGEN_COMMIT=b423e1da9504239fb3136cbcc5f9beeb37795837
-# Protocol 30: stellar-xdr@01741cb6, the commit stellar-core and rs-stellar-xdr pin
-# for CAP-0084 (gated behind CAP_0084_MUXED_CONTRACT, see XDR_FEATURES below).
-XDR_COMMIT=01741cb652724526d3f90ffe39b417d6a88ee819
+# Protocol 30: stellar-xdr@ee040cd6, the commit stellar-core pins as src/protocol-curr/xdr
+# (CAP-0084 gated behind CAP_0084_MUXED_CONTRACT, see XDR_FEATURES below).
+XDR_COMMIT=ee040cd65310cd4f66d41fc74ebbbb3b6604dcc6
 
 .PHONY: xdr xdr-clean xdr-update
 
