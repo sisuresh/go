@@ -12,6 +12,20 @@ This monorepo contains a number of sdk's:
 Official project releases may be found here: https://github.com/stellar/go-stellar-sdk/releases
 ## Pending
 
+### Breaking Changes
+* xdr: Regenerated from stellar-xdr@ee040cd6 with `CAP_0084_MUXED_CONTRACT` enabled. Contract spec UDT and event names are widened to `SC_SPEC_TYPE_NAME_LIMIT` (1024 bytes), and `ScSpecEventV0.Name` is now a `string` instead of an `ScSymbol`.
+
+### New Features
+* xdr: Add the CAP-0084 `ScAddressTypeScAddressTypeMuxedContract` arm of `ScAddress`. `ScAddress.String()` renders it as a `W...` muxed contract strkey.
+* strkey: Add `VersionByteMuxedContract` (`W...`), `MuxedContract`, `DecodeMuxedContract`, and `IsValidMuxedContractAddress`.
+* xdr: Added `LedgerCloseMetaView.LedgerHeader()`, exposing the version-resolving header accessor that already backs `LedgerSequence`, `LedgerCloseTime`, `LedgerHash`, and `PreviousLedgerHash` ([#5982](https://github.com/stellar/go-stellar-sdk/pull/5982))
+* rpcclient: Add `Client.URL()` to expose the configured RPC server URL ([#5885](https://github.com/stellar/go-stellar-sdk/issues/5885))
+* protocols/rpc: Add queryEvents wire types and request validation (`QueryEventsRequest`/`QueryEventsResponse`, `QueryEventsFilter`, scan statuses, typed `error.data` payloads), transcribed from the [accepted proposal](https://github.com/orgs/stellar/discussions/1872) ([#5971](https://github.com/stellar/go-stellar-sdk/pull/5971))
+
+### Bug Fixes
+* processors/token_transfer: Accept a `to_muxed_id` bound to `Void` in V4 event data. CAP-0067 specifies that the key is simply absent when there is no muxed destination, and that form already parsed. `Void` is what a contract emits instead if it publishes its event data as a `#[contracttype]` struct with an `Option` field — the natural way to write it before CAP-0086's sparse maps, which omit the key. Such an event previously failed to parse and was dropped from the event stream entirely, silently ([#5983](https://github.com/stellar/go-stellar-sdk/pull/5983))
+* processors/token_transfer: Report a `to_muxed_id` of type `ScvBytes` at the length the contract emitted. It was previously copied into a fixed 32-byte buffer, so a shorter value was right-padded with zeroes and a longer one truncated, reporting a muxed id that was never emitted. Only a classic transaction memo maps to a fixed 32 bytes here; a contract may put any byte string in `to_muxed_id` ([#5984](https://github.com/stellar/go-stellar-sdk/issues/5984))
+
 ## [0.7.2] - 2026-08-14
 
 ### Breaking Changes

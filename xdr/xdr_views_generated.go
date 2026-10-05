@@ -4099,7 +4099,7 @@ func (v ContractCostTypeView) Value() (ContractCostType, error) {
 	}
 	val := ContractCostType(int32(binary.BigEndian.Uint32(v[:4])))
 	switch val {
-	case ContractCostTypeWasmInsnExec, ContractCostTypeMemAlloc, ContractCostTypeMemCpy, ContractCostTypeMemCmp, ContractCostTypeDispatchHostFunction, ContractCostTypeVisitObject, ContractCostTypeValSer, ContractCostTypeValDeser, ContractCostTypeComputeSha256Hash, ContractCostTypeComputeEd25519PubKey, ContractCostTypeVerifyEd25519Sig, ContractCostTypeVmInstantiation, ContractCostTypeVmCachedInstantiation, ContractCostTypeInvokeVmFunction, ContractCostTypeComputeKeccak256Hash, ContractCostTypeDecodeEcdsaCurve256Sig, ContractCostTypeRecoverEcdsaSecp256k1Key, ContractCostTypeInt256AddSub, ContractCostTypeInt256Mul, ContractCostTypeInt256Div, ContractCostTypeInt256Pow, ContractCostTypeInt256Shift, ContractCostTypeChaCha20DrawBytes, ContractCostTypeParseWasmInstructions, ContractCostTypeParseWasmFunctions, ContractCostTypeParseWasmGlobals, ContractCostTypeParseWasmTableEntries, ContractCostTypeParseWasmTypes, ContractCostTypeParseWasmDataSegments, ContractCostTypeParseWasmElemSegments, ContractCostTypeParseWasmImports, ContractCostTypeParseWasmExports, ContractCostTypeParseWasmDataSegmentBytes, ContractCostTypeInstantiateWasmInstructions, ContractCostTypeInstantiateWasmFunctions, ContractCostTypeInstantiateWasmGlobals, ContractCostTypeInstantiateWasmTableEntries, ContractCostTypeInstantiateWasmTypes, ContractCostTypeInstantiateWasmDataSegments, ContractCostTypeInstantiateWasmElemSegments, ContractCostTypeInstantiateWasmImports, ContractCostTypeInstantiateWasmExports, ContractCostTypeInstantiateWasmDataSegmentBytes, ContractCostTypeSec1DecodePointUncompressed, ContractCostTypeVerifyEcdsaSecp256r1Sig, ContractCostTypeBls12381EncodeFp, ContractCostTypeBls12381DecodeFp, ContractCostTypeBls12381G1CheckPointOnCurve, ContractCostTypeBls12381G1CheckPointInSubgroup, ContractCostTypeBls12381G2CheckPointOnCurve, ContractCostTypeBls12381G2CheckPointInSubgroup, ContractCostTypeBls12381G1ProjectiveToAffine, ContractCostTypeBls12381G2ProjectiveToAffine, ContractCostTypeBls12381G1Add, ContractCostTypeBls12381G1Mul, ContractCostTypeBls12381G1Msm, ContractCostTypeBls12381MapFpToG1, ContractCostTypeBls12381HashToG1, ContractCostTypeBls12381G2Add, ContractCostTypeBls12381G2Mul, ContractCostTypeBls12381G2Msm, ContractCostTypeBls12381MapFp2ToG2, ContractCostTypeBls12381HashToG2, ContractCostTypeBls12381Pairing, ContractCostTypeBls12381FrFromU256, ContractCostTypeBls12381FrToU256, ContractCostTypeBls12381FrAddSub, ContractCostTypeBls12381FrMul, ContractCostTypeBls12381FrPow, ContractCostTypeBls12381FrInv, ContractCostTypeBn254EncodeFp, ContractCostTypeBn254DecodeFp, ContractCostTypeBn254G1CheckPointOnCurve, ContractCostTypeBn254G2CheckPointOnCurve, ContractCostTypeBn254G2CheckPointInSubgroup, ContractCostTypeBn254G1ProjectiveToAffine, ContractCostTypeBn254G1Add, ContractCostTypeBn254G1Mul, ContractCostTypeBn254Pairing, ContractCostTypeBn254FrFromU256, ContractCostTypeBn254FrToU256, ContractCostTypeBn254FrAddSub, ContractCostTypeBn254FrMul, ContractCostTypeBn254FrPow, ContractCostTypeBn254FrInv, ContractCostTypeBn254G1Msm, ContractCostTypeMlDsa44DecodeVerifyingKey, ContractCostTypeMlDsa65DecodeVerifyingKey, ContractCostTypeMlDsa87DecodeVerifyingKey, ContractCostTypeMlDsa44DecodeSignature, ContractCostTypeMlDsa65DecodeSignature, ContractCostTypeMlDsa87DecodeSignature, ContractCostTypeVerifyMlDsa44Sig, ContractCostTypeVerifyMlDsa65Sig, ContractCostTypeVerifyMlDsa87Sig:
+	case ContractCostTypeWasmInsnExec, ContractCostTypeMemAlloc, ContractCostTypeMemCpy, ContractCostTypeMemCmp, ContractCostTypeDispatchHostFunction, ContractCostTypeVisitObject, ContractCostTypeValSer, ContractCostTypeValDeser, ContractCostTypeComputeSha256Hash, ContractCostTypeComputeEd25519PubKey, ContractCostTypeVerifyEd25519Sig, ContractCostTypeVmInstantiation, ContractCostTypeVmCachedInstantiation, ContractCostTypeInvokeVmFunction, ContractCostTypeComputeKeccak256Hash, ContractCostTypeDecodeEcdsaCurve256Sig, ContractCostTypeRecoverEcdsaSecp256k1Key, ContractCostTypeInt256AddSub, ContractCostTypeInt256Mul, ContractCostTypeInt256Div, ContractCostTypeInt256Pow, ContractCostTypeInt256Shift, ContractCostTypeChaCha20DrawBytes, ContractCostTypeParseWasmInstructions, ContractCostTypeParseWasmFunctions, ContractCostTypeParseWasmGlobals, ContractCostTypeParseWasmTableEntries, ContractCostTypeParseWasmTypes, ContractCostTypeParseWasmDataSegments, ContractCostTypeParseWasmElemSegments, ContractCostTypeParseWasmImports, ContractCostTypeParseWasmExports, ContractCostTypeParseWasmDataSegmentBytes, ContractCostTypeInstantiateWasmInstructions, ContractCostTypeInstantiateWasmFunctions, ContractCostTypeInstantiateWasmGlobals, ContractCostTypeInstantiateWasmTableEntries, ContractCostTypeInstantiateWasmTypes, ContractCostTypeInstantiateWasmDataSegments, ContractCostTypeInstantiateWasmElemSegments, ContractCostTypeInstantiateWasmImports, ContractCostTypeInstantiateWasmExports, ContractCostTypeInstantiateWasmDataSegmentBytes, ContractCostTypeSec1DecodePointUncompressed, ContractCostTypeVerifyEcdsaSecp256r1Sig, ContractCostTypeBls12381EncodeFp, ContractCostTypeBls12381DecodeFp, ContractCostTypeBls12381G1CheckPointOnCurve, ContractCostTypeBls12381G1CheckPointInSubgroup, ContractCostTypeBls12381G2CheckPointOnCurve, ContractCostTypeBls12381G2CheckPointInSubgroup, ContractCostTypeBls12381G1ProjectiveToAffine, ContractCostTypeBls12381G2ProjectiveToAffine, ContractCostTypeBls12381G1Add, ContractCostTypeBls12381G1Mul, ContractCostTypeBls12381G1Msm, ContractCostTypeBls12381MapFpToG1, ContractCostTypeBls12381HashToG1, ContractCostTypeBls12381G2Add, ContractCostTypeBls12381G2Mul, ContractCostTypeBls12381G2Msm, ContractCostTypeBls12381MapFp2ToG2, ContractCostTypeBls12381HashToG2, ContractCostTypeBls12381Pairing, ContractCostTypeBls12381FrFromU256, ContractCostTypeBls12381FrToU256, ContractCostTypeBls12381FrAddSub, ContractCostTypeBls12381FrMul, ContractCostTypeBls12381FrPow, ContractCostTypeBls12381FrInv, ContractCostTypeBn254EncodeFp, ContractCostTypeBn254DecodeFp, ContractCostTypeBn254G1CheckPointOnCurve, ContractCostTypeBn254G2CheckPointOnCurve, ContractCostTypeBn254G2CheckPointInSubgroup, ContractCostTypeBn254G1ProjectiveToAffine, ContractCostTypeBn254G1Add, ContractCostTypeBn254G1Mul, ContractCostTypeBn254Pairing, ContractCostTypeBn254FrFromU256, ContractCostTypeBn254FrToU256, ContractCostTypeBn254FrAddSub, ContractCostTypeBn254FrMul, ContractCostTypeBn254FrPow, ContractCostTypeBn254FrInv, ContractCostTypeBn254G1Msm:
 		return val, nil
 	default:
 		return 0, viewErrUnknownDiscriminant(0, int32(val))
@@ -15845,7 +15845,7 @@ func (v ScAddressTypeView) Value() (ScAddressType, error) {
 	}
 	val := ScAddressType(int32(binary.BigEndian.Uint32(v[:4])))
 	switch val {
-	case ScAddressTypeScAddressTypeAccount, ScAddressTypeScAddressTypeContract, ScAddressTypeScAddressTypeMuxedAccount, ScAddressTypeScAddressTypeClaimableBalance, ScAddressTypeScAddressTypeLiquidityPool:
+	case ScAddressTypeScAddressTypeAccount, ScAddressTypeScAddressTypeContract, ScAddressTypeScAddressTypeMuxedAccount, ScAddressTypeScAddressTypeClaimableBalance, ScAddressTypeScAddressTypeLiquidityPool, ScAddressTypeScAddressTypeMuxedContract:
 		return val, nil
 	default:
 		return 0, viewErrUnknownDiscriminant(0, int32(val))
@@ -15955,6 +15955,88 @@ func (v MuxedEd25519AccountView) Fields() (MuxedEd25519AccountFields, error) {
 	return locateMuxedEd25519Account(v)
 }
 
+type MuxedContractView []byte
+
+func (v MuxedContractView) size(_ int) (int, error) { return 40, nil }
+func (v MuxedContractView) Id() (Uint64View, error) {
+	if len(v) < 40 {
+		return nil, viewErrShortBuffer(0, "need 40 bytes")
+	}
+	return Uint64View(v[0:]), nil
+}
+func (v MuxedContractView) MustId() Uint64View { return must(v.Id()) }
+func (v MuxedContractView) ContractId() (ContractIdView, error) {
+	if len(v) < 40 {
+		return nil, viewErrShortBuffer(0, "need 40 bytes")
+	}
+	off := int64(0)
+	off += 8
+	if off > int64(len(v)) {
+		return nil, viewErrShortBuffer(uint32(off), "field offset exceeds data")
+	}
+	return ContractIdView(v[off:]), nil
+}
+func (v MuxedContractView) MustContractId() ContractIdView { return must(v.ContractId()) }
+func (v MuxedContractView) valid(depth int) (int, error) {
+	if len(v) < 40 {
+		return 0, viewErrShortBuffer(0, "need 40 bytes")
+	}
+	off := int64(0)
+	{
+		sz, err := Uint64View(v[off:]).valid(depth + 1)
+		if err != nil {
+			return 0, err
+		}
+		off += int64(sz)
+		if off > int64(len(v)) {
+			return 0, viewErrShortBuffer(uint32(off), "field offset exceeds data")
+		}
+	}
+	{
+		sz, err := ContractIdView(v[off:]).valid(depth + 1)
+		if err != nil {
+			return 0, err
+		}
+		off += int64(sz)
+		if off > int64(len(v)) {
+			return 0, viewErrShortBuffer(uint32(off), "field offset exceeds data")
+		}
+	}
+	return int(off), nil
+}
+
+// Raw returns the exact wire bytes for this view, trimmed from the fat slice.
+func (v MuxedContractView) Raw() ([]byte, error) { return viewRaw(v) }
+
+// Copy returns an independent copy of this view that does not alias the original bytes.
+func (v MuxedContractView) Copy() (MuxedContractView, error) { return viewCopy(v) }
+
+// ValidateFull checks that this view is well-formed: bounds, schema constraints, and depth limits.
+func (v MuxedContractView) ValidateFull() error         { return validate(v) }
+func (v MuxedContractView) MustRaw() []byte             { return must(v.Raw()) }
+func (v MuxedContractView) MustCopy() MuxedContractView { return must(v.Copy()) }
+
+// MuxedContractFields is the located form of MuxedContractView: every field trimmed to its exact wire extent, all found in one walk.
+type MuxedContractFields struct {
+	View       MuxedContractView
+	Id         Uint64View
+	ContractId ContractIdView
+}
+
+func locateMuxedContract(v MuxedContractView) (MuxedContractFields, error) {
+	var f MuxedContractFields
+	if len(v) < 40 {
+		return f, viewErrShortBuffer(0, "need 40 bytes")
+	}
+	f.Id = Uint64View(v[0:8])
+	f.ContractId = ContractIdView(v[8:40])
+	f.View = MuxedContractView(v[:40])
+	return f, nil
+}
+
+// Fields locates every field of this node in a single walk, each trimmed to its exact wire extent.
+func (v MuxedContractView) Fields() (MuxedContractFields, error) { return locateMuxedContract(v) }
+
 type ScAddressView []byte
 
 func (v ScAddressView) size(depth int) (int, error) {
@@ -16011,6 +16093,15 @@ func (v ScAddressView) size(depth int) (int, error) {
 			return 0, viewErrShortBuffer(4, "arm exceeds data")
 		}
 		return 4 + sz, nil
+	case int32(ScAddressTypeScAddressTypeMuxedContract):
+		sz, err := MuxedContractView(v[4:]).size(depth + 1)
+		if err != nil {
+			return 0, err
+		}
+		if 4+sz > len(v) {
+			return 0, viewErrShortBuffer(4, "arm exceeds data")
+		}
+		return 4 + sz, nil
 	default:
 		return 0, viewErrUnknownDiscriminant(0, disc)
 	}
@@ -16021,7 +16112,7 @@ func (v ScAddressView) Type() (ScAddressType, error) {
 	}
 	val := ScAddressType(int32(binary.BigEndian.Uint32(v[:4])))
 	switch val {
-	case ScAddressTypeScAddressTypeAccount, ScAddressTypeScAddressTypeContract, ScAddressTypeScAddressTypeMuxedAccount, ScAddressTypeScAddressTypeClaimableBalance, ScAddressTypeScAddressTypeLiquidityPool:
+	case ScAddressTypeScAddressTypeAccount, ScAddressTypeScAddressTypeContract, ScAddressTypeScAddressTypeMuxedAccount, ScAddressTypeScAddressTypeClaimableBalance, ScAddressTypeScAddressTypeLiquidityPool, ScAddressTypeScAddressTypeMuxedContract:
 		return val, nil
 	default:
 		return 0, viewErrUnknownDiscriminant(0, int32(val))
@@ -16095,6 +16186,19 @@ func (v ScAddressView) LiquidityPoolId() (PoolIdView, error) {
 	return PoolIdView(v[4:]), nil
 }
 func (v ScAddressView) MustLiquidityPoolId() PoolIdView { return must(v.LiquidityPoolId()) }
+func (v ScAddressView) MuxedContract() (MuxedContractView, error) {
+	if len(v) < 4 {
+		return nil, viewErrShortBuffer(0, "need 4 bytes for discriminant")
+	}
+	disc := int32(binary.BigEndian.Uint32(v[:4]))
+	switch disc {
+	case int32(ScAddressTypeScAddressTypeMuxedContract):
+	default:
+		return nil, viewErrWrongDiscriminant(0, disc, int32(ScAddressTypeScAddressTypeMuxedContract))
+	}
+	return MuxedContractView(v[4:]), nil
+}
+func (v ScAddressView) MustMuxedContract() MuxedContractView { return must(v.MuxedContract()) }
 func (v ScAddressView) valid(depth int) (int, error) {
 	if depth > maxDepth {
 		return 0, viewErrMaxDepth(0)
@@ -16142,6 +16246,15 @@ func (v ScAddressView) valid(depth int) (int, error) {
 		return 4 + sz, nil
 	case int32(ScAddressTypeScAddressTypeLiquidityPool):
 		sz, err := PoolIdView(v[4:]).valid(depth + 1)
+		if err != nil {
+			return 0, err
+		}
+		if 4+sz > len(v) {
+			return 0, viewErrShortBuffer(4, "arm exceeds data")
+		}
+		return 4 + sz, nil
+	case int32(ScAddressTypeScAddressTypeMuxedContract):
+		sz, err := MuxedContractView(v[4:]).valid(depth + 1)
 		if err != nil {
 			return 0, err
 		}

@@ -33,11 +33,11 @@ import (
 // XdrFilesSHA256 is the SHA256 hashes of source files.
 var XdrFilesSHA256 = map[string]string{
 	"xdr/Stellar-SCP.x":                     "6aed428fb6c2d000f5bc1eef0ba685d6108f3faa96208ffa588c0e2990813939",
-	"xdr/Stellar-contract-config-setting.x": "2722e2c2f711832939bc15b3b35a75d6b81c2eb061adea3f128afa2c0806ca9e",
+	"xdr/Stellar-contract-config-setting.x": "a034a3eb4d8b94f5c4c573fe14a1afc548aa316e1e897aa70e5a1688aada3c77",
 	"xdr/Stellar-contract-env-meta.x":       "75a271414d852096fea3283c63b7f2a702f2905f78fc28eb60ec7d7bd366a780",
 	"xdr/Stellar-contract-meta.x":           "f01532c11ca044e19d9f9f16fe373e9af64835da473be556b9a807ee3319ae0d",
 	"xdr/Stellar-contract-spec.x":           "943e65a0a8f5e8a5b19738ca7d029ce7a38fea4b1f9f59cb7d4262094882e03d",
-	"xdr/Stellar-contract.x":                "a59c25f38b4705ae149a8f049eb686f6018712d792b9207318a644ea5b5f52b5",
+	"xdr/Stellar-contract.x":                "1efa2e593e8a0e2ebbd3fde00e73da1d1afd10891a83e101dc46318673a34bbd",
 	"xdr/Stellar-exporter.x":                "a00c83d02e8c8382e06f79a191f1fb5abd097a4bbcab8481c67467e3270e0529",
 	"xdr/Stellar-internal.x":                "227835866c1b2122d1eaf28839ba85ea7289d1cb681dda4ca619c2da3d71fe00",
 	"xdr/Stellar-ledger-entries.x":          "65a24350a69f0d1c74c0dce61a68db2a657611ad9318cb2736860fd99a2db020",
@@ -59105,6 +59105,8 @@ var _ xdrType = (*ContractExecutableType)(nil)
 //	     SC_ADDRESS_TYPE_MUXED_ACCOUNT = 2,
 //	     SC_ADDRESS_TYPE_CLAIMABLE_BALANCE = 3,
 //	     SC_ADDRESS_TYPE_LIQUIDITY_POOL = 4
+//	     ,
+//	     SC_ADDRESS_TYPE_MUXED_CONTRACT = 5
 //	 };
 type ScAddressType int32
 
@@ -59114,6 +59116,7 @@ const (
 	ScAddressTypeScAddressTypeMuxedAccount     ScAddressType = 2
 	ScAddressTypeScAddressTypeClaimableBalance ScAddressType = 3
 	ScAddressTypeScAddressTypeLiquidityPool    ScAddressType = 4
+	ScAddressTypeScAddressTypeMuxedContract    ScAddressType = 5
 )
 
 var scAddressTypeMap = map[int32]string{
@@ -59122,6 +59125,7 @@ var scAddressTypeMap = map[int32]string{
 	2: "ScAddressTypeScAddressTypeMuxedAccount",
 	3: "ScAddressTypeScAddressTypeClaimableBalance",
 	4: "ScAddressTypeScAddressTypeLiquidityPool",
+	5: "ScAddressTypeScAddressTypeMuxedContract",
 }
 
 // ValidEnum validates a proposed value for this enum.  Implements
@@ -59268,6 +59272,81 @@ func (s MuxedEd25519Account) xdrType() {}
 
 var _ xdrType = (*MuxedEd25519Account)(nil)
 
+// MuxedContract is an XDR Struct defines as:
+//
+//	struct MuxedContract
+//	 {
+//	     uint64 id;
+//	     ContractID contractId;
+//	 };
+type MuxedContract struct {
+	Id         Uint64
+	ContractId ContractId
+}
+
+// EncodeTo encodes this value using the Encoder.
+func (s *MuxedContract) EncodeTo(e *xdr.Encoder) error {
+	var err error
+	if err = s.Id.EncodeTo(e); err != nil {
+		return err
+	}
+	if err = s.ContractId.EncodeTo(e); err != nil {
+		return err
+	}
+	return nil
+}
+
+var _ decoderFrom = (*MuxedContract)(nil)
+
+// DecodeFrom decodes this value using the Decoder.
+func (s *MuxedContract) DecodeFrom(d *xdr.Decoder, maxDepth uint) (int, error) {
+	if maxDepth == 0 {
+		return 0, fmt.Errorf("decoding MuxedContract: %w", ErrMaxDecodingDepthReached)
+	}
+	maxDepth -= 1
+	var err error
+	var n, nTmp int
+	nTmp, err = s.Id.DecodeFrom(d, maxDepth)
+	n += nTmp
+	if err != nil {
+		return n, fmt.Errorf("decoding Uint64: %w", err)
+	}
+	nTmp, err = s.ContractId.DecodeFrom(d, maxDepth)
+	n += nTmp
+	if err != nil {
+		return n, fmt.Errorf("decoding ContractId: %w", err)
+	}
+	return n, nil
+}
+
+// MarshalBinary implements encoding.BinaryMarshaler.
+func (s MuxedContract) MarshalBinary() ([]byte, error) {
+	b := bytes.Buffer{}
+	e := xdr.NewEncoder(&b)
+	err := s.EncodeTo(e)
+	return b.Bytes(), err
+}
+
+// UnmarshalBinary implements encoding.BinaryUnmarshaler.
+func (s *MuxedContract) UnmarshalBinary(inp []byte) error {
+	r := bytes.NewReader(inp)
+	o := xdr.DefaultDecodeOptions
+	o.MaxInputLen = len(inp)
+	d := xdr.NewDecoderWithOptions(r, o)
+	_, err := s.DecodeFrom(d, o.MaxDepth)
+	return err
+}
+
+var (
+	_ encoding.BinaryMarshaler   = (*MuxedContract)(nil)
+	_ encoding.BinaryUnmarshaler = (*MuxedContract)(nil)
+)
+
+// xdrType signals that this type represents XDR values defined by this package.
+func (s MuxedContract) xdrType() {}
+
+var _ xdrType = (*MuxedContract)(nil)
+
 // ScAddress is an XDR Union defines as:
 //
 //	union SCAddress switch (SCAddressType type)
@@ -59282,6 +59361,8 @@ var _ xdrType = (*MuxedEd25519Account)(nil)
 //	     ClaimableBalanceID claimableBalanceId;
 //	 case SC_ADDRESS_TYPE_LIQUIDITY_POOL:
 //	     PoolID liquidityPoolId;
+//	 case SC_ADDRESS_TYPE_MUXED_CONTRACT:
+//	     MuxedContract muxedContract;
 //	 };
 type ScAddress struct {
 	Type               ScAddressType
@@ -59290,6 +59371,7 @@ type ScAddress struct {
 	MuxedAccount       *MuxedEd25519Account
 	ClaimableBalanceId *ClaimableBalanceId
 	LiquidityPoolId    *PoolId
+	MuxedContract      *MuxedContract
 }
 
 // SwitchFieldName returns the field name in which this union's
@@ -59312,6 +59394,8 @@ func (u ScAddress) ArmForSwitch(sw int32) (string, bool) {
 		return "ClaimableBalanceId", true
 	case ScAddressTypeScAddressTypeLiquidityPool:
 		return "LiquidityPoolId", true
+	case ScAddressTypeScAddressTypeMuxedContract:
+		return "MuxedContract", true
 	}
 	return "-", false
 }
@@ -59355,6 +59439,13 @@ func NewScAddress(aType ScAddressType, value interface{}) (result ScAddress, err
 			return
 		}
 		result.LiquidityPoolId = &tv
+	case ScAddressTypeScAddressTypeMuxedContract:
+		tv, ok := value.(MuxedContract)
+		if !ok {
+			err = errors.New("invalid value, must be MuxedContract")
+			return
+		}
+		result.MuxedContract = &tv
 	}
 	return
 }
@@ -59484,6 +59575,31 @@ func (u ScAddress) GetLiquidityPoolId() (result PoolId, ok bool) {
 	return
 }
 
+// MustMuxedContract retrieves the MuxedContract value from the union,
+// panicing if the value is not set.
+func (u ScAddress) MustMuxedContract() MuxedContract {
+	val, ok := u.GetMuxedContract()
+
+	if !ok {
+		panic("arm MuxedContract is not set")
+	}
+
+	return val
+}
+
+// GetMuxedContract retrieves the MuxedContract value from the union,
+// returning ok if the union's switch indicated the value is valid.
+func (u ScAddress) GetMuxedContract() (result MuxedContract, ok bool) {
+	armName, _ := u.ArmForSwitch(int32(u.Type))
+
+	if armName == "MuxedContract" {
+		result = *u.MuxedContract
+		ok = true
+	}
+
+	return
+}
+
 // EncodeTo encodes this value using the Encoder.
 func (u ScAddress) EncodeTo(e *xdr.Encoder) error {
 	var err error
@@ -59513,6 +59629,11 @@ func (u ScAddress) EncodeTo(e *xdr.Encoder) error {
 		return nil
 	case ScAddressTypeScAddressTypeLiquidityPool:
 		if err = (*u.LiquidityPoolId).EncodeTo(e); err != nil {
+			return err
+		}
+		return nil
+	case ScAddressTypeScAddressTypeMuxedContract:
+		if err = (*u.MuxedContract).EncodeTo(e); err != nil {
 			return err
 		}
 		return nil
@@ -59589,6 +59710,17 @@ func (u *ScAddress) DecodeFrom(d *xdr.Decoder, maxDepth uint) (int, error) {
 		n += nTmp
 		if err != nil {
 			return n, fmt.Errorf("decoding PoolId: %w", err)
+		}
+		return n, nil
+	case ScAddressTypeScAddressTypeMuxedContract:
+		if err = xdr.TrackOutputBytesOf[MuxedContract](d); err != nil {
+			return n, fmt.Errorf("decoding MuxedContract: %w", err)
+		}
+		u.MuxedContract = new(MuxedContract)
+		nTmp, err = (*u.MuxedContract).DecodeFrom(d, maxDepth)
+		n += nTmp
+		if err != nil {
+			return n, fmt.Errorf("decoding MuxedContract: %w", err)
 		}
 		return n, nil
 	}
@@ -63399,25 +63531,6 @@ var _ xdrType = (*ConfigSettingContractBandwidthV0)(nil)
 //	     Bn254FrInv = 84,
 //	     // Cost of performing BN254 G1 multi-scalar multiplication (MSM)
 //	     Bn254G1Msm = 85
-//	     ,
-//	     // Cost of decoding and expanding an ML-DSA-44 verifying key
-//	     MlDsa44DecodeVerifyingKey = 86,
-//	     // Cost of decoding and expanding an ML-DSA-65 verifying key
-//	     MlDsa65DecodeVerifyingKey = 87,
-//	     // Cost of decoding and expanding an ML-DSA-87 verifying key
-//	     MlDsa87DecodeVerifyingKey = 88,
-//	     // Cost of decoding an ML-DSA-44 signature
-//	     MlDsa44DecodeSignature = 89,
-//	     // Cost of decoding an ML-DSA-65 signature
-//	     MlDsa65DecodeSignature = 90,
-//	     // Cost of decoding an ML-DSA-87 signature
-//	     MlDsa87DecodeSignature = 91,
-//	     // Cost of verifying an ML-DSA-44 signature, linear in message + context length
-//	     VerifyMlDsa44Sig = 92,
-//	     // Cost of verifying an ML-DSA-65 signature, linear in message + context length
-//	     VerifyMlDsa65Sig = 93,
-//	     // Cost of verifying an ML-DSA-87 signature, linear in message + context length
-//	     VerifyMlDsa87Sig = 94
 //	 };
 type ContractCostType int32
 
@@ -63508,15 +63621,6 @@ const (
 	ContractCostTypeBn254FrPow                      ContractCostType = 83
 	ContractCostTypeBn254FrInv                      ContractCostType = 84
 	ContractCostTypeBn254G1Msm                      ContractCostType = 85
-	ContractCostTypeMlDsa44DecodeVerifyingKey       ContractCostType = 86
-	ContractCostTypeMlDsa65DecodeVerifyingKey       ContractCostType = 87
-	ContractCostTypeMlDsa87DecodeVerifyingKey       ContractCostType = 88
-	ContractCostTypeMlDsa44DecodeSignature          ContractCostType = 89
-	ContractCostTypeMlDsa65DecodeSignature          ContractCostType = 90
-	ContractCostTypeMlDsa87DecodeSignature          ContractCostType = 91
-	ContractCostTypeVerifyMlDsa44Sig                ContractCostType = 92
-	ContractCostTypeVerifyMlDsa65Sig                ContractCostType = 93
-	ContractCostTypeVerifyMlDsa87Sig                ContractCostType = 94
 )
 
 var contractCostTypeMap = map[int32]string{
@@ -63606,15 +63710,6 @@ var contractCostTypeMap = map[int32]string{
 	83: "ContractCostTypeBn254FrPow",
 	84: "ContractCostTypeBn254FrInv",
 	85: "ContractCostTypeBn254G1Msm",
-	86: "ContractCostTypeMlDsa44DecodeVerifyingKey",
-	87: "ContractCostTypeMlDsa65DecodeVerifyingKey",
-	88: "ContractCostTypeMlDsa87DecodeVerifyingKey",
-	89: "ContractCostTypeMlDsa44DecodeSignature",
-	90: "ContractCostTypeMlDsa65DecodeSignature",
-	91: "ContractCostTypeMlDsa87DecodeSignature",
-	92: "ContractCostTypeVerifyMlDsa44Sig",
-	93: "ContractCostTypeVerifyMlDsa65Sig",
-	94: "ContractCostTypeVerifyMlDsa87Sig",
 }
 
 // ValidEnum validates a proposed value for this enum.  Implements
