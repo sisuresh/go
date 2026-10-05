@@ -4915,6 +4915,24 @@ const (
 	Bn254FrInv ContractCostType = 84
 	// Cost of performing BN254 G1 multi-scalar multiplication (MSM)
 	Bn254G1Msm ContractCostType = 85
+	// Cost of decoding and expanding an ML-DSA-44 verifying key
+	MlDsa44DecodeVerifyingKey ContractCostType = 86
+	// Cost of decoding and expanding an ML-DSA-65 verifying key
+	MlDsa65DecodeVerifyingKey ContractCostType = 87
+	// Cost of decoding and expanding an ML-DSA-87 verifying key
+	MlDsa87DecodeVerifyingKey ContractCostType = 88
+	// Cost of decoding an ML-DSA-44 signature
+	MlDsa44DecodeSignature ContractCostType = 89
+	// Cost of decoding an ML-DSA-65 signature
+	MlDsa65DecodeSignature ContractCostType = 90
+	// Cost of decoding an ML-DSA-87 signature
+	MlDsa87DecodeSignature ContractCostType = 91
+	// Cost of verifying an ML-DSA-44 signature, linear in message + context length
+	VerifyMlDsa44Sig ContractCostType = 92
+	// Cost of verifying an ML-DSA-65 signature, linear in message + context length
+	VerifyMlDsa65Sig ContractCostType = 93
+	// Cost of verifying an ML-DSA-87 signature, linear in message + context length
+	VerifyMlDsa87Sig ContractCostType = 94
 )
 
 type ContractCostParamEntry struct {
@@ -31842,6 +31860,15 @@ var _XdrNames_ContractCostType = map[int32]string{
 	int32(Bn254FrPow):                      "Bn254FrPow",
 	int32(Bn254FrInv):                      "Bn254FrInv",
 	int32(Bn254G1Msm):                      "Bn254G1Msm",
+	int32(MlDsa44DecodeVerifyingKey):       "MlDsa44DecodeVerifyingKey",
+	int32(MlDsa65DecodeVerifyingKey):       "MlDsa65DecodeVerifyingKey",
+	int32(MlDsa87DecodeVerifyingKey):       "MlDsa87DecodeVerifyingKey",
+	int32(MlDsa44DecodeSignature):          "MlDsa44DecodeSignature",
+	int32(MlDsa65DecodeSignature):          "MlDsa65DecodeSignature",
+	int32(MlDsa87DecodeSignature):          "MlDsa87DecodeSignature",
+	int32(VerifyMlDsa44Sig):                "VerifyMlDsa44Sig",
+	int32(VerifyMlDsa65Sig):                "VerifyMlDsa65Sig",
+	int32(VerifyMlDsa87Sig):                "VerifyMlDsa87Sig",
 }
 var _XdrValues_ContractCostType = map[string]int32{
 	"WasmInsnExec":                    int32(WasmInsnExec),
@@ -31930,6 +31957,15 @@ var _XdrValues_ContractCostType = map[string]int32{
 	"Bn254FrPow":                      int32(Bn254FrPow),
 	"Bn254FrInv":                      int32(Bn254FrInv),
 	"Bn254G1Msm":                      int32(Bn254G1Msm),
+	"MlDsa44DecodeVerifyingKey":       int32(MlDsa44DecodeVerifyingKey),
+	"MlDsa65DecodeVerifyingKey":       int32(MlDsa65DecodeVerifyingKey),
+	"MlDsa87DecodeVerifyingKey":       int32(MlDsa87DecodeVerifyingKey),
+	"MlDsa44DecodeSignature":          int32(MlDsa44DecodeSignature),
+	"MlDsa65DecodeSignature":          int32(MlDsa65DecodeSignature),
+	"MlDsa87DecodeSignature":          int32(MlDsa87DecodeSignature),
+	"VerifyMlDsa44Sig":                int32(VerifyMlDsa44Sig),
+	"VerifyMlDsa65Sig":                int32(VerifyMlDsa65Sig),
+	"VerifyMlDsa87Sig":                int32(VerifyMlDsa87Sig),
 }
 
 func (ContractCostType) XdrEnumNames() map[int32]string {
@@ -32055,6 +32091,15 @@ var _XdrComments_ContractCostType = map[int32]string{
 	int32(Bn254FrPow):                      "Cost of performing BN254 scalar element exponentiation",
 	int32(Bn254FrInv):                      "Cost of performing BN254 scalar element inversion",
 	int32(Bn254G1Msm):                      "Cost of performing BN254 G1 multi-scalar multiplication (MSM)",
+	int32(MlDsa44DecodeVerifyingKey):       "Cost of decoding and expanding an ML-DSA-44 verifying key",
+	int32(MlDsa65DecodeVerifyingKey):       "Cost of decoding and expanding an ML-DSA-65 verifying key",
+	int32(MlDsa87DecodeVerifyingKey):       "Cost of decoding and expanding an ML-DSA-87 verifying key",
+	int32(MlDsa44DecodeSignature):          "Cost of decoding an ML-DSA-44 signature",
+	int32(MlDsa65DecodeSignature):          "Cost of decoding an ML-DSA-65 signature",
+	int32(MlDsa87DecodeSignature):          "Cost of decoding an ML-DSA-87 signature",
+	int32(VerifyMlDsa44Sig):                "Cost of verifying an ML-DSA-44 signature, linear in message + context length",
+	int32(VerifyMlDsa65Sig):                "Cost of verifying an ML-DSA-65 signature, linear in message + context length",
+	int32(VerifyMlDsa87Sig):                "Cost of verifying an ML-DSA-87 signature, linear in message + context length",
 }
 
 func (e ContractCostType) XdrEnumComments() map[int32]string {

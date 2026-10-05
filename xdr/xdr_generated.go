@@ -33,7 +33,7 @@ import (
 // XdrFilesSHA256 is the SHA256 hashes of source files.
 var XdrFilesSHA256 = map[string]string{
 	"xdr/Stellar-SCP.x":                     "6aed428fb6c2d000f5bc1eef0ba685d6108f3faa96208ffa588c0e2990813939",
-	"xdr/Stellar-contract-config-setting.x": "a034a3eb4d8b94f5c4c573fe14a1afc548aa316e1e897aa70e5a1688aada3c77",
+	"xdr/Stellar-contract-config-setting.x": "2722e2c2f711832939bc15b3b35a75d6b81c2eb061adea3f128afa2c0806ca9e",
 	"xdr/Stellar-contract-env-meta.x":       "75a271414d852096fea3283c63b7f2a702f2905f78fc28eb60ec7d7bd366a780",
 	"xdr/Stellar-contract-meta.x":           "f01532c11ca044e19d9f9f16fe373e9af64835da473be556b9a807ee3319ae0d",
 	"xdr/Stellar-contract-spec.x":           "943e65a0a8f5e8a5b19738ca7d029ce7a38fea4b1f9f59cb7d4262094882e03d",
@@ -63531,6 +63531,25 @@ var _ xdrType = (*ConfigSettingContractBandwidthV0)(nil)
 //	     Bn254FrInv = 84,
 //	     // Cost of performing BN254 G1 multi-scalar multiplication (MSM)
 //	     Bn254G1Msm = 85
+//	     ,
+//	     // Cost of decoding and expanding an ML-DSA-44 verifying key
+//	     MlDsa44DecodeVerifyingKey = 86,
+//	     // Cost of decoding and expanding an ML-DSA-65 verifying key
+//	     MlDsa65DecodeVerifyingKey = 87,
+//	     // Cost of decoding and expanding an ML-DSA-87 verifying key
+//	     MlDsa87DecodeVerifyingKey = 88,
+//	     // Cost of decoding an ML-DSA-44 signature
+//	     MlDsa44DecodeSignature = 89,
+//	     // Cost of decoding an ML-DSA-65 signature
+//	     MlDsa65DecodeSignature = 90,
+//	     // Cost of decoding an ML-DSA-87 signature
+//	     MlDsa87DecodeSignature = 91,
+//	     // Cost of verifying an ML-DSA-44 signature, linear in message + context length
+//	     VerifyMlDsa44Sig = 92,
+//	     // Cost of verifying an ML-DSA-65 signature, linear in message + context length
+//	     VerifyMlDsa65Sig = 93,
+//	     // Cost of verifying an ML-DSA-87 signature, linear in message + context length
+//	     VerifyMlDsa87Sig = 94
 //	 };
 type ContractCostType int32
 
@@ -63621,6 +63640,15 @@ const (
 	ContractCostTypeBn254FrPow                      ContractCostType = 83
 	ContractCostTypeBn254FrInv                      ContractCostType = 84
 	ContractCostTypeBn254G1Msm                      ContractCostType = 85
+	ContractCostTypeMlDsa44DecodeVerifyingKey       ContractCostType = 86
+	ContractCostTypeMlDsa65DecodeVerifyingKey       ContractCostType = 87
+	ContractCostTypeMlDsa87DecodeVerifyingKey       ContractCostType = 88
+	ContractCostTypeMlDsa44DecodeSignature          ContractCostType = 89
+	ContractCostTypeMlDsa65DecodeSignature          ContractCostType = 90
+	ContractCostTypeMlDsa87DecodeSignature          ContractCostType = 91
+	ContractCostTypeVerifyMlDsa44Sig                ContractCostType = 92
+	ContractCostTypeVerifyMlDsa65Sig                ContractCostType = 93
+	ContractCostTypeVerifyMlDsa87Sig                ContractCostType = 94
 )
 
 var contractCostTypeMap = map[int32]string{
@@ -63710,6 +63738,15 @@ var contractCostTypeMap = map[int32]string{
 	83: "ContractCostTypeBn254FrPow",
 	84: "ContractCostTypeBn254FrInv",
 	85: "ContractCostTypeBn254G1Msm",
+	86: "ContractCostTypeMlDsa44DecodeVerifyingKey",
+	87: "ContractCostTypeMlDsa65DecodeVerifyingKey",
+	88: "ContractCostTypeMlDsa87DecodeVerifyingKey",
+	89: "ContractCostTypeMlDsa44DecodeSignature",
+	90: "ContractCostTypeMlDsa65DecodeSignature",
+	91: "ContractCostTypeMlDsa87DecodeSignature",
+	92: "ContractCostTypeVerifyMlDsa44Sig",
+	93: "ContractCostTypeVerifyMlDsa65Sig",
+	94: "ContractCostTypeVerifyMlDsa87Sig",
 }
 
 // ValidEnum validates a proposed value for this enum.  Implements

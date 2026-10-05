@@ -18,6 +18,7 @@ Official project releases may be found here: https://github.com/stellar/go-stell
 ### New Features
 * xdr: Add the CAP-0084 `ScAddressTypeScAddressTypeMuxedContract` arm of `ScAddress`. `ScAddress.String()` renders it as a `W...` muxed contract strkey.
 * strkey: Add `VersionByteMuxedContract` (`W...`), `MuxedContract`, `DecodeMuxedContract`, and `IsValidMuxedContractAddress`.
+* xdr: Regenerated with `CAP_0087_ML_DSA` enabled, adding `ContractCostType` 86-94 for ML-DSA verifying-key/signature decoding and signature verification (CAP-0087).
 * xdr: Added `LedgerCloseMetaView.LedgerHeader()`, exposing the version-resolving header accessor that already backs `LedgerSequence`, `LedgerCloseTime`, `LedgerHash`, and `PreviousLedgerHash` ([#5982](https://github.com/stellar/go-stellar-sdk/pull/5982))
 * rpcclient: Add `Client.URL()` to expose the configured RPC server URL ([#5885](https://github.com/stellar/go-stellar-sdk/issues/5885))
 * protocols/rpc: Add queryEvents wire types and request validation (`QueryEventsRequest`/`QueryEventsResponse`, `QueryEventsFilter`, scan statuses, typed `error.data` payloads), transcribed from the [accepted proposal](https://github.com/orgs/stellar/discussions/1872) ([#5971](https://github.com/stellar/go-stellar-sdk/pull/5971))

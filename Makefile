@@ -18,7 +18,7 @@ xdr/Stellar-exporter.x
 
 XDRGEN_COMMIT=b423e1da9504239fb3136cbcc5f9beeb37795837
 # Protocol 30: stellar-xdr@ee040cd6, the commit stellar-core pins as src/protocol-curr/xdr
-# (CAP-0084 gated behind CAP_0084_MUXED_CONTRACT, see XDR_FEATURES below).
+# (CAP-0084 and CAP-0087 gated behind CAP_0084_MUXED_CONTRACT / CAP_0087_ML_DSA, see XDR_FEATURES below).
 XDR_COMMIT=ee040cd65310cd4f66d41fc74ebbbb3b6604dcc6
 
 .PHONY: xdr xdr-clean xdr-update
@@ -69,7 +69,7 @@ xdr/xdr_generated.go: $(XDRS)
 
 # Optional comma-separated features for #ifdef resolution in the XDR files.
 # Empty = no features enabled; only unconditional definitions are emitted.
-XDR_FEATURES ?= CAP_0084_MUXED_CONTRACT
+XDR_FEATURES ?= CAP_0084_MUXED_CONTRACT,CAP_0087_ML_DSA
 
 # Generates xdr/xdr_views_generated.go via a two-step pipeline:
 #   1. The rust `generator-definitions-json` tool parses the .x files and
