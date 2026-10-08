@@ -53,8 +53,10 @@ func TestDecodeMuxedContract(t *testing.T) {
 	for _, invalid := range []string{
 		muxedContractBase,
 		"MA7QYNF7SOWQ3GLR2BGMZEHXAVIRZA4KVWLTJJFC7MGXUA74P7UJVAAAAAAAAAAAAAJLK",
-		// bad checksum
+		// non-canonical: differs from a valid address only in the unused padding bit
 		"WA3D5KRYM6CB7OWQ6TWYRR3Z4T7GNZLKERYNZGGA5SOAOPIFY6YQGAAAAAAAAAPCIA6IH",
+		// bad checksum
+		"WA3D5KRYM6CB7OWQ6TWYRR3Z4T7GNZLKERYNZGGA5SOAOPIFY6YQGAAAAAAAAAPCIA6IE",
 		// truncated
 		"WA3D5KRYM6CB7OWQ6TWYRR3Z4T7GNZLKERYNZGGA5SOAOPIFY6YQGAAAAAAAAAPCIA6",
 		"",
@@ -64,6 +66,16 @@ func TestDecodeMuxedContract(t *testing.T) {
 		assert.Nil(t, muxed)
 		assert.False(t, IsValidMuxedContractAddress(invalid), invalid)
 	}
+}
+
+func TestDecodeMuxedContractRejectionReasons(t *testing.T) {
+	_, err := Decode(VersionByteMuxedContract, "WA3D5KRYM6CB7OWQ6TWYRR3Z4T7GNZLKERYNZGGA5SOAOPIFY6YQGAAAAAAAAAPCIA6IE")
+	require.Error(t, err)
+	assert.Contains(t, err.Error(), "invalid checksum")
+
+	_, err = Decode(VersionByteMuxedContract, "WA3D5KRYM6CB7OWQ6TWYRR3Z4T7GNZLKERYNZGGA5SOAOPIFY6YQGAAAAAAAAAPCIA6IH")
+	require.Error(t, err)
+	assert.Contains(t, err.Error(), "non-canonical")
 }
 
 func TestMuxedContract_SetContractID(t *testing.T) {
